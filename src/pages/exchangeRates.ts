@@ -4,13 +4,13 @@ const ExchangeRates = () => {
 
     fetch(`https://api.fxratesapi.com/currencies`)
     .then(res => res.json())
-    .then(currencies => {
-        console.log(currencies);
-        const curr = Object.entries(currencies)
-        const currencyOptions = document.getElementById("currency-options");
-        curr.forEach((currency) => {
+    .then(cur => {
+        console.log(cur);
+        const currencies = Object.entries(cur) as [string, { name: string }][];
+        const currencyOptions = document.getElementById("currency-options") as HTMLSelectElement | null;
+       currencyOptions && currencies.forEach((currency) => {
           console.log(currency)
-            const option = document.createElement("option") as HTMLElement;
+            const option = document.createElement("option") as HTMLOptionElement;
             option.value = currency[0];
             option.textContent = `${currency[0]} ${currency[1].name}`;
             currencyOptions.appendChild(option);
