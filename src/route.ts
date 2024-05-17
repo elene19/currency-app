@@ -27,7 +27,8 @@ export const router = async () => {
   });
 
   console.log(match);
-  const view = match.view();
+  const view = match && match.view();
+
   const mainPage = document.querySelector("#app") as HTMLDivElement;
   mainPage.innerHTML = view;
 };

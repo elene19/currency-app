@@ -14,7 +14,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `<div>
 </div>`;
 
 window.addEventListener("popstate", router);
-document.addEventListener("DOMContentLoaded", (e) => {
+document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
     // console.log(e.target.id, "afafaf");
     if ((e.target as HTMLAnchorElement).matches("[data-link]")) {
@@ -32,7 +32,7 @@ const exchangeBtn = document.querySelector(".exchange");
 // exchangeBtn.addEventListener("click", () => {});
 
 nav?.addEventListener("click", (e) => {
-  if (!e.target.classList.contains("active")) {
+  if (!(e.target as HTMLAnchorElement).classList.contains("active")) {
     exchangeBtn?.classList.toggle("active");
     converterBtn?.classList.toggle("active");
   }
