@@ -1,24 +1,39 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import "./style.css";
+import { router } from "./route";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const navigateTo = (url: string) => {
+  history.pushState(null, "", url);
+  router();
+};
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = `<div>
+
+
+
+
+</div>`;
+
+window.addEventListener("popstate", router);
+document.addEventListener("DOMContentLoaded", (e) => {
+  document.body.addEventListener("click", (e) => {
+    // console.log(e.target.id, "afafaf");
+    if ((e.target as HTMLAnchorElement).matches("[data-link]")) {
+      e.preventDefault();
+      navigateTo((e.target as HTMLAnchorElement).href);
+      // console.log((e.target as HTMLAnchorElement).href);
+    }
+  });
+  router();
+});
+
+const nav = document.querySelector("#nav");
+const converterBtn = document.querySelector(".converter");
+const exchangeBtn = document.querySelector(".exchange");
+// exchangeBtn.addEventListener("click", () => {});
+
+nav?.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("active")) {
+    exchangeBtn?.classList.toggle("active");
+    converterBtn?.classList.toggle("active");
+  }
+});
