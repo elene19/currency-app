@@ -1,3 +1,59 @@
-.const {
-  background-color: green;
+.converterContainer {
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.selectors,
+.inputs {
+  display: flex;
+
+  gap: 2rem;
+  justify-content: center;
+}
+.selectors div,
+.inputs div {
+  width: 90%;
+}
+.selectors div select {
+  /* background-color: purple; */
+  border-radius: 6px;
+  width: 200px;
+  width: 90%;
+  height: 70px;
+}
+
+.inputs div input {
+  /* border-radius: 6px; */
+  border: none;
+  border-bottom: 0.5px solid #696969;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-color: #ececec;
+  width: 200px;
+  width: 90%;
+  height: 70px;
+  padding-left: 2rem;
+  font-size: 2rem;
+}
+
+.dateSection {
+  /* background-color: aqua; */
+  font-size: 2rem;
+  padding-top: 2rem;
+  display: flex;
+  gap: 1.8rem;
+  align-items: center;
+}
+
+.dateSection input {
+  border: 1px solid #e0dddd;
+  border-radius: 6px;
+  width: 30%;
+  height: 50px;
+  display: flex;
+  padding: 1rem;
+  /* justify-content: flex-end; */
+  font-size: 1.6rem;
 }
