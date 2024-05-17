@@ -12,16 +12,19 @@
   gap: 2rem;
   justify-content: center;
 }
+
 .selectors div,
 .inputs div {
   width: 90%;
 }
+
 .selectors div select {
   /* background-color: purple; */
   border-radius: 6px;
   width: 200px;
   width: 90%;
   height: 70px;
+  padding-left: 1rem;
 }
 
 .inputs div input {
