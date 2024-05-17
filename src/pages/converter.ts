@@ -1,6 +1,7 @@
-export default function Converter() {
-  //   const converterCont = document.getElementById("app");
-  //   converterCont.innerHTML = "hahah"
+import styles from "./converter.module.css";
 
-  return `<div id="converter-container"><p>converter</p></div>`;
+export default function Converter() {
+  return `<div class=${styles.const}>
+  
+  </div>`;
 }
