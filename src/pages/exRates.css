@@ -1,0 +1,86 @@
+
+.currency-list{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding: 20px;
+}
+
+.currency-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.currency-header h3{
+    font-weight: 400;
+    width: 100px;
+    text-align: center;
+}
+
+.currency-options{
+    padding: 16px 6px 16px 16px;
+    border: none;
+    font-size: 18px;
+    width: 80px;
+    overflow: visible;
+}
+
+.currency-list li {
+    padding: 20px 0px;
+    border-bottom: 1px solid rgb(240, 245, 250);
+    display: flex;
+    justify-content: space-between;
+}
+
+.currency-list h4{
+    font-weight: 400;
+    width: 100px;
+    text-align: center;
+}
+
+.add-currency {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0px 20px;
+}
+
+.add-currency button{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 22px;
+    border: none;
+    background-color: #0171EB;
+    color: #fff;
+}
+
+.add-currency h3{
+    font-weight: 500;
+    color: #0171EB;
+}
+
+.add-select-container{
+    display: flex; 
+    padding: 5px 20px;
+    gap: 5px;
+}
+
+.add-currency-select{
+    border: none;
+    font-size: 16px;
+    appearance: none;
+    border: 2px solid #0171EB;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+.add-select-container button {
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #0171EB;
+}

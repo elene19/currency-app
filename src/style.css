@@ -37,7 +37,7 @@ nav {
   width: 60%;
   margin: 0 auto;
   align-self: center;
-  height: 400px;
+  height: 100%;
   border-radius: 10px;
   box-shadow: -1px 9px 12px 4px rgba(85, 85, 85, 0.42);
   padding: 2rem;

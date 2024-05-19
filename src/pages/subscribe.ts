@@ -1,4 +1,18 @@
-async function subscribe(base = 'USD', rates = 'GEL,GBP,EUR', onDataArrived: (arg: any) => void){
+interface Data {
+  base: string;
+  date: string;
+  privacy: string;
+  rates: {
+    [key: string]: number;
+  };
+  success: boolean;
+  terms: string;
+  timestamp: number;
+}
+
+
+
+async function subscribe(base = 'USD', rates = 'GEL,GBP,EUR', onDataArrived: (arg: Data) => void){
     let response = await fetch(`https://api.fxratesapi.com/latest?base=${base}&currencies=${rates}&resolution=1m&amount=1&places=6&format=json`);
     if (response.status == 502) {
         await new Promise(resolve => setTimeout(resolve, 60000)); 
@@ -11,6 +25,7 @@ async function subscribe(base = 'USD', rates = 'GEL,GBP,EUR', onDataArrived: (ar
     } else {
         const message = await response.json();
         onDataArrived(message);
+        console.log(message)
         await new Promise(resolve => setTimeout(resolve, 60000)); 
         await subscribe(base, rates, onDataArrived);
     }
