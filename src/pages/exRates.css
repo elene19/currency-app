@@ -5,6 +5,7 @@
     gap: 15px;
     width: 100%;
     padding: 20px;
+
 }
 
 .currency-header {
@@ -32,12 +33,21 @@
     border-bottom: 1px solid rgb(240, 245, 250);
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .currency-list h4{
     font-weight: 400;
-    width: 100px;
+    max-width: 100px;
     text-align: center;
+}
+
+.title-div{
+    display: flex;
+    width: 100px;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
 }
 
 .add-currency {
@@ -66,6 +76,7 @@
     display: flex; 
     padding: 5px 20px;
     gap: 5px;
+    align-items: center;
 }
 
 .add-currency-select{
@@ -83,4 +94,10 @@
     font-size: 16px;
     font-weight: 500;
     color: #0171EB;
+}
+
+
+.chart {
+    width: 100px !important; 
+    height: 50px !important; 
 }

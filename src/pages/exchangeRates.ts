@@ -1,23 +1,13 @@
 import subscribe from "./subscribe";
 import { getChange } from "./getChange";
-import './exRates.css'
-
-interface Data {
-  base: string;
-  date: string;
-  privacy: string;
-  rates: {
-    [key: string]: number;
-  };
-  success: boolean;
-  terms: string;
-  timestamp: number;
-}
+import { ChartComponent } from "./chart";
+import { nanoid } from "nanoid";
+import euFlag from '../assets/Flag_of_Europe.svg.png'
+import './exRates.css';
 
 
 const ExchangeRates = () => {
   let selectedBaseCurrency = "GEL";
-
     fetch(`https://api.fxratesapi.com/currencies`)
     .then(res => res.json())
     .then(cur => {
@@ -33,6 +23,13 @@ const ExchangeRates = () => {
 
            currencies.forEach((currency) => {
                  const option = document.createElement("option") as HTMLOptionElement;
+                //  const img = document.createElement("img");
+                //   img.style.width = '24px'
+                //   const countryCode = currency.slice(0, currency.length - 1);
+                //   const imgUrl = countryCode === 'EU' ? euFlag : `https://flagsapi.com/${countryCode}/flat/24.png`
+                //   img.setAttribute('src', imgUrl)
+
+                //   option.innerHTML = imgUrl
                  option.value = currency[0];
                  option.textContent = `${currency[0]} ${currency[1].name}`;
                  if(currency[0] === "GEL"){
@@ -55,6 +52,7 @@ const ExchangeRates = () => {
           currencies.forEach((currency) => {
             const option = document.createElement("option") as HTMLOptionElement;
             option.value = currency[0];
+            const flag = `https://flagsapi.com/${countryCode}/flat/24.png`
             option.textContent = `${currency[0]} ${currency[1].name}`;
             addCurrencySelect.appendChild(option);
           });
@@ -62,13 +60,22 @@ const ExchangeRates = () => {
           addCurrencyButton.addEventListener("click", () => {
             addCurrencyButton.style.display = "none";
             addCurrencySelect.style.display = "inline"
-            cancelButton.style.display = 'inline';
+            cancelButton.style.display = 'flex';
           });
 
           addCurrencySelect.addEventListener("change", (event) => {
             const selectedCurrency = (event.target as HTMLSelectElement).value;
-            addCurrencyToRates(selectedCurrency);
-            addCurrencyButton.style.display = "inline";
+            const prevCurrencies = localStorage.getItem('currencies')?.split(",");
+            const isAlreadyAdded = prevCurrencies?.includes(selectedCurrency)
+            if(prevCurrencies){
+              !isAlreadyAdded && localStorage.setItem('currencies', prevCurrencies + ',' + selectedCurrency)
+              !isAlreadyAdded && addCurrencyToRates(selectedCurrency);
+            } else {
+              !isAlreadyAdded && localStorage.setItem('currencies', 'EUR,USD,GEL,GBP' + ',' + selectedCurrency)
+              !isAlreadyAdded && addCurrencyToRates(selectedCurrency);
+
+            }
+            addCurrencyButton.style.display = "flex";
             addCurrencySelect.style.display = "none";
             cancelButton.style.display = 'none';
           });
@@ -83,13 +90,12 @@ const ExchangeRates = () => {
     .catch(error => {
         console.error('Error fetching currencies:', error);
     }); 
-    
+    const currencies = localStorage.getItem('currencies');
     const updateRates = (base: string = "GEL") => {
-
-      subscribe(base, "EUR,USD,GBP,TRY", (data) => {
+      let defaultCurrencies = "EUR,USD,GEL,GBP";
+      subscribe(base, currencies || defaultCurrencies, (data) => {
         const rates = Object.entries(data.rates) as [string, number][];
         const ratesList = document.getElementById("rates-list") as HTMLDivElement;
-    
         ratesList.innerHTML = '';
     
         rates.forEach((rate) => {
@@ -100,14 +106,24 @@ const ExchangeRates = () => {
 
     
     const addRateToList = (base: string, currency: string, rate: number) => {
+      const img = document.createElement("img");
+      img.style.width = '24px'
+      const countryCode = currency.slice(0, currency.length - 1);
+      const imgUrl = countryCode === 'EU' ? euFlag : `https://flagsapi.com/${countryCode}/flat/24.png`
+      img.setAttribute('src', imgUrl)
       
       const ratesList = document.getElementById("rates-list") as HTMLDivElement;
       const listItem = document.createElement("li");
       listItem.className = "list-item";
       
+
+      const titleDiv = document.createElement("div");
+      titleDiv.className = "title-div";
       const rateTitle = document.createElement("h4");
       rateTitle.className = "rate-title";
       rateTitle.innerHTML = currency;
+      titleDiv.append(img, rateTitle);
+
       
       const rateAmount = document.createElement("h4");
       rateAmount.className = "rate-amount";
@@ -115,25 +131,29 @@ const ExchangeRates = () => {
       
       const change = document.createElement("h4");
       change.className = "change";
+      const canvas = document.createElement("canvas");
       
-     getChange(base, (data: Data) => {
+     getChange(base, (data) => {
         const changes = Object.entries(data.rates)
-        const today = changes[changes.length - 1][1];
+        const today = (changes[changes.length - 1][1]);
         const yesterday = changes[0][1];
         const changeRate = ((today[currency] - yesterday[currency]) / yesterday[currency]) * 100;
+
         const roundedChangeRate = +changeRate;
         const formattedChangeRate = roundedChangeRate >= 0 ? `+${roundedChangeRate.toFixed(7)}%` : `${roundedChangeRate.toFixed(7)}%`;
         change.innerHTML = formattedChangeRate;
+        change.style.color = roundedChangeRate >= 0? "#1E8723" : "#B30021";
+        
+        canvas.className = 'chart';
+        const id = nanoid()
+        canvas.id = `chart${id}`;
+        ChartComponent(changes, currency, id);
       })
 
-      const chart = document.createElement("h4");
-      chart.className = "chart";
-      chart.innerHTML = "Chart";
-
-      listItem.appendChild(rateTitle);
+      listItem.appendChild(titleDiv);
       listItem.appendChild(rateAmount);
       listItem.appendChild(change);
-      listItem.appendChild(chart);
+      listItem.appendChild(canvas);
 
       ratesList.appendChild(listItem);
   };
@@ -152,7 +172,7 @@ const ExchangeRates = () => {
                 <select class="currency-options" id="currency-options"></select>
                 <h3>Amount</h3>
                 <h3>Change (24h)</h3>
-                <h3>Chart</h3>
+                <h3>Chart (24h)</h3>
               </div>
               <div id="rates-list"></div>
               <div class="add-currency" id="add-currency-button">

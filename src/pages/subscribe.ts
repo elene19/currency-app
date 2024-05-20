@@ -25,7 +25,6 @@ async function subscribe(base = 'USD', rates = 'GEL,GBP,EUR', onDataArrived: (ar
     } else {
         const message = await response.json();
         onDataArrived(message);
-        console.log(message)
         await new Promise(resolve => setTimeout(resolve, 60000)); 
         await subscribe(base, rates, onDataArrived);
     }

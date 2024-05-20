@@ -3,7 +3,9 @@ interface Data {
     date: string;
     privacy: string;
     rates: {
-      [key: string]: number;
+      [key: string]: {
+        [key: string]: number;
+      };
     };
     success: boolean;
     terms: string;
