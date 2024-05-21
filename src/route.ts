@@ -31,3 +31,12 @@ export const router = async () => {
   const mainPage = document.querySelector("#app") as HTMLDivElement;
   mainPage.innerHTML = view as string;
 };
+
+
+
+
+
+
+
+
+

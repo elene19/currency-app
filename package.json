@@ -11,5 +11,9 @@
   "devDependencies": {
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.3",
+    "nanoid": "^5.0.7"
   }
 }
