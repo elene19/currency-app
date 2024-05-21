@@ -25,6 +25,7 @@ a {
 li {
   list-style-type: none;
 }
+
 nav {
   margin: 0 auto;
   /* background-color: red; */
@@ -37,7 +38,7 @@ nav {
   width: 60%;
   margin: 0 auto;
   align-self: center;
-  height: 400px;
+  height: 100%;
   border-radius: 10px;
   box-shadow: -1px 9px 12px 4px rgba(85, 85, 85, 0.42);
   padding: 4rem;
@@ -58,4 +59,23 @@ ul {
   list-style: none;
   display: flex;
   gap: 1rem;
+}
+
+.from {
+  justify-self: start;
+}
+
+.to {
+  justify-self: end;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

@@ -3,14 +3,34 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  position: relative;
+  justify-content: space-between;
+}
+
+.swapper {
+  position: absolute;
+  top: 50%;
+  left: 48%;
+  font-size: 1.8rem;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: none;
+  color: rgb(56, 145, 56);
+  cursor: pointer;
+  z-index: 999;
+  padding: 2rem;
 }
 
 .selectors,
 .inputs {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* gap: 2rem; */
+  justify-content: space-between;
+}
 
-  gap: 2rem;
-  justify-content: center;
+.inputs {
+  position: relative;
 }
 
 .selectors div,
@@ -20,6 +40,7 @@
 
 .selectors div select {
   /* background-color: purple; */
+  border: 1px solid #b8b4b4;
   border-radius: 6px;
   width: 200px;
   width: 90%;
@@ -57,6 +78,11 @@
   height: 50px;
   display: flex;
   padding: 1rem;
+  font-weight: 600;
   /* justify-content: flex-end; */
-  font-size: 1.6rem;
+  /* font-size: 1.6rem; */
 }
+
+/* i {
+  position: absolute;
+} */

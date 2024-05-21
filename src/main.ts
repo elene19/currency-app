@@ -6,12 +6,7 @@ const navigateTo = (url: string) => {
   router();
 };
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `<div>
-
-
-
-
-</div>`;
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = `<div></div>`;
 
 window.addEventListener("popstate", router);
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if ((e.target as HTMLAnchorElement).matches("[data-link]")) {
       e.preventDefault();
       navigateTo((e.target as HTMLAnchorElement).href);
+      // console.log(e.target);
       // console.log((e.target as HTMLAnchorElement).href);
     }
   });
