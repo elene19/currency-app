@@ -27,6 +27,13 @@ const converterBtn = document.querySelector(".converter");
 const exchangeBtn = document.querySelector(".exchange");
 // exchangeBtn.addEventListener("click", () => {});
 
+document.addEventListener("DOMContentLoaded", () => {
+  if(location.pathname.includes("converter")){
+    converterBtn?.classList.add("active");
+  } else{
+    exchangeBtn?.classList.add("active");
+  }
+})
 nav?.addEventListener("click", (e) => {
   if (!(e.target as HTMLAnchorElement).classList.contains("active")) {
     exchangeBtn?.classList.toggle("active");

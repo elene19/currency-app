@@ -5,7 +5,6 @@ import { nanoid } from "nanoid";
 import euFlag from '../assets/Flag_of_Europe.svg.png'
 import './exRates.css';
 
-
 const ExchangeRates = () => {
   let selectedBaseCurrency = "GEL";
     fetch(`https://api.fxratesapi.com/currencies`)
@@ -52,7 +51,7 @@ const ExchangeRates = () => {
           currencies.forEach((currency) => {
             const option = document.createElement("option") as HTMLOptionElement;
             option.value = currency[0];
-            const flag = `https://flagsapi.com/${countryCode}/flat/24.png`
+            // const flag = `https://flagsapi.com/${countryCode}/flat/24.png`
             option.textContent = `${currency[0]} ${currency[1].name}`;
             addCurrencySelect.appendChild(option);
           });
@@ -93,8 +92,30 @@ const ExchangeRates = () => {
     const currencies = localStorage.getItem('currencies');
     const updateRates = (base: string = "GEL") => {
       let defaultCurrencies = "EUR,USD,GEL,GBP";
-      subscribe(base, currencies || defaultCurrencies, (data) => {
+      const currenciesData = currencies || defaultCurrencies;
+      subscribe(base, currenciesData, (data) => {
+
         const rates = Object.entries(data.rates) as [string, number][];
+        const currenciesArray = currenciesData?.split(",");
+        const currencyIndexMap = new Map();
+        currenciesArray.forEach((currency, index) => {
+          currencyIndexMap.set(currency, index);
+      });
+
+      rates.sort((a,b) => {
+        const indexA = currencyIndexMap.get(a[0]);
+    const indexB = currencyIndexMap.get(b[0]);
+    
+      if (indexA === undefined && indexB === undefined) {
+          return 0;
+      } else if (indexA === undefined) {
+          return 1;
+      } else if (indexB === undefined) {
+          return -1;
+      } else {
+          return indexA - indexB;
+      }
+      })
         const ratesList = document.getElementById("rates-list") as HTMLDivElement;
         ratesList.innerHTML = '';
     
@@ -127,6 +148,7 @@ const ExchangeRates = () => {
       
       const rateAmount = document.createElement("h4");
       rateAmount.className = "rate-amount";
+      rateAmount.style.width = "100px";
       rateAmount.innerHTML = rate.toString();
       
       const change = document.createElement("h4");
@@ -137,7 +159,7 @@ const ExchangeRates = () => {
         const changes = Object.entries(data.rates)
         const today = (changes[changes.length - 1][1]);
         const yesterday = changes[0][1];
-        const changeRate = ((today[currency] - yesterday[currency]) / yesterday[currency]) * 100;
+        const changeRate = ((yesterday[currency] - today[currency]) / yesterday[currency]) * 100;
 
         const roundedChangeRate = +changeRate;
         const formattedChangeRate = roundedChangeRate >= 0 ? `+${roundedChangeRate.toFixed(7)}%` : `${roundedChangeRate.toFixed(7)}%`;
