@@ -26,9 +26,17 @@ export const router = async () => {
     return match;
   });
 
-  console.log(match);
-  const view = match && await match.view();
-
+  const view = match && (await match.view());
+ 
   const mainPage = document.querySelector("#app") as HTMLDivElement;
-  mainPage.innerHTML = view;
+  mainPage.innerHTML = view as string;
 };
+
+
+
+
+
+
+
+
+
