@@ -27,7 +27,7 @@ export const router = async () => {
   });
 
   const view = match && (await match.view());
- 
+
   const mainPage = document.querySelector("#app") as HTMLDivElement;
   mainPage.innerHTML = view as string;
 };
