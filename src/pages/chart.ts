@@ -1,8 +1,13 @@
 import Chart from 'chart.js/auto';
 
-export const ChartComponent = (data, currency: string, id: string) => {
+type chartData = [string, {
+    [key: string]: number;
+}][]
+ 
+export const ChartComponent = (data: chartData, currency: string, id: string) => {
     const chartId = document.getElementById(`chart${id}`);
-  console.log(data)
+    console.log(data)
+    
     if (chartId instanceof HTMLCanvasElement) {
         new Chart(
             chartId,
@@ -14,7 +19,7 @@ export const ChartComponent = (data, currency: string, id: string) => {
                         fill: false,
                         label: "Chart",
                         borderWidth: 1,
-                        data: data.map((row) => row[1][currency]),
+                        data: data.reverse().map((row) => row[1][currency]),
                         borderColor: 'rgb(75, 192, 192)',
                         tension: 0.1
                     }]

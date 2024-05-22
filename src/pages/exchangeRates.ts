@@ -59,7 +59,7 @@ const ExchangeRates = () => {
         currencies.forEach((currency) => {
           const option = document.createElement("option") as HTMLOptionElement;
           option.value = currency[0];
-          // const flag = `https://flagsapi.com/${countryCode}/flat/24.png`
+          const flag = `https://flagsapi.com/${countryCode}/flat/24.png`;
           option.textContent = `${currency[0]} ${currency[1].name}`;
           addCurrencySelect.appendChild(option);
         });
