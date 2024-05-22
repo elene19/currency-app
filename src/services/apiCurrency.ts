@@ -7,6 +7,11 @@ export async function CurrencyConverter(
     /////////
 
     if (document.getElementById("selectors")) {
+      const dateInputValue = (
+        document.getElementById("date") as HTMLInputElement
+      ).value;
+      console.log(dateInputValue);
+
       const date = new Date();
       const formattedDate = date
         .toLocaleDateString("en-GB", {
@@ -20,7 +25,7 @@ export async function CurrencyConverter(
       const fetched = await fetch(
         `https://api.fxratesapi.com/convert?from=${from || "USD"}&to=${
           to || "GEL"
-        }&date=${formattedDate}&amount=${amount}&format=json`
+        }&date=${dateInputValue || formattedDate}&amount=${amount}&format=json`
       );
 
       if (!fetched.ok) throw new Error("there is an error in fetch request");
@@ -44,14 +49,14 @@ export async function CurrencyNames() {
       throw new Error("there was a problem with getting currency data");
     const data = await fetched.json();
     const arr = Object.entries(data);
-    console.log(data);
+
+    interface Name {
+      code: string;
+      name: string;
+    }
     const names = arr
       .map((e) => e[1])
-      .map(
-        (e) => `
-    
-    ${e.code} ${e.name}`
-      );
+      .map((e) => ` ${(e as Name).code} ${(e as Name).name}`);
 
     return names;
   } catch (err) {

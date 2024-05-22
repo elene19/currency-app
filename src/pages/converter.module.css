@@ -27,8 +27,15 @@
   grid-template-columns: repeat(2, 1fr);
   /* gap: 2rem; */
   justify-content: space-between;
+  position: relative;
 }
-
+.imgFrom,
+.imgTo {
+  position: absolute;
+  top: 28%;
+  /* left: 2%; */
+  padding-left: 0.5rem;
+}
 .inputs {
   position: relative;
 }
@@ -45,7 +52,7 @@
   width: 200px;
   width: 90%;
   height: 70px;
-  padding-left: 1rem;
+  padding-left: 3.5rem;
 }
 
 .inputs div input {
@@ -72,11 +79,13 @@
 }
 
 .dateSection input {
+  cursor: pointer;
   border: 1px solid #e0dddd;
   border-radius: 6px;
-  width: 30%;
+  width: 50%;
   height: 50px;
   display: flex;
+  justify-content: flex-end;
   padding: 1rem;
   font-weight: 600;
   /* justify-content: flex-end; */
